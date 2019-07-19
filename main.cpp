@@ -47,12 +47,15 @@ int main(int argc, char *argv[])
   {
     QGuiApplication app(argc, argv);
 
+    GstElement *sink = gst_element_factory_make ("qmlglsink", nullptr);
+    gst_object_unref(sink);
+
     GstElement *pipeline = gst_pipeline_new (nullptr);
     GstElement *src = gst_element_factory_make ("videotestsrc", nullptr);
     GstElement *glupload = gst_element_factory_make ("glupload", nullptr);
     /* the plugin must be loaded before loading the qml file to register the
      * GstGLVideoItem qml item */
-    GstElement *sink = gst_element_factory_make ("qmlglsink", nullptr);
+    sink = gst_element_factory_make ("qmlglsink", nullptr);
 
     g_assert (src && glupload && sink);
 
