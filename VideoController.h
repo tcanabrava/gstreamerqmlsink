@@ -3,20 +3,22 @@
 #include <QQuickItem>
 #include <gst/gst.h>
 
-class VideoPlayer : public QQuickItem {
+class VideoController : public QQuickItem {
     Q_OBJECT
     Q_PROPERTY(QObject *videoItem WRITE setVideoItem READ videoItem NOTIFY videoItemChanged)
 public:
-    VideoPlayer(QQuickItem *parent = nullptr);
-    virtual ~VideoPlayer();
+    VideoController(QQuickItem *parent = nullptr);
+    virtual ~VideoController();
 
+    /* This is the Qml GstGLVideoItem  */
     QObject *videoItem() const;
     Q_SLOT void setVideoItem(QObject *videoItem);
     Q_SIGNAL void videoItemChanged(QObject *videoItem);
 
+    /* This method prepares the pipeline, creates the sink, links things together. */
     void preparePipeline();
-    GstElement *pipeline() const;
-    GstElement *sink() const;
+
+    /* This method sets the pipeline state to playing as soon as Qt allows it */
     Q_INVOKABLE void startVideo();
     
 private:

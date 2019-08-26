@@ -1,9 +1,9 @@
-#include "VideoPlayer.h"
+#include "VideoController.h"
 #include "VideoSetPlaying.h"
 
 #include <QQuickWindow>
 
-VideoPlayer::VideoPlayer(QQuickItem *parent) 
+VideoController::VideoController(QQuickItem *parent)
 : QQuickItem(parent)
 , m_videoItem(nullptr)
 , m_pipeline(nullptr)
@@ -12,12 +12,12 @@ VideoPlayer::VideoPlayer(QQuickItem *parent)
     preparePipeline();
 }
 
-VideoPlayer::~VideoPlayer() {
+VideoController::~VideoController() {
     gst_element_set_state (m_pipeline, GST_STATE_NULL);
     gst_object_unref (m_pipeline);
 }
 
-void VideoPlayer::preparePipeline() {
+void VideoController::preparePipeline() {
   m_pipeline = gst_pipeline_new (nullptr);
 
   GstElement *src = gst_element_factory_make ("videotestsrc", nullptr);
@@ -25,13 +25,11 @@ void VideoPlayer::preparePipeline() {
 
   m_videoSink = gst_element_factory_make ("qmlglsink", nullptr);
 
-  g_assert (src && glupload && m_videoSink);
-
   gst_bin_add_many (GST_BIN (m_pipeline), src, glupload, m_videoSink, nullptr);
   gst_element_link_many (src, glupload, m_videoSink, nullptr);
 }
 
-void VideoPlayer::setVideoItem(QObject *videoItem) {
+void VideoController::setVideoItem(QObject *videoItem) {
     if (m_videoItem != videoItem) {
         m_videoItem = videoItem;
         g_object_set(m_videoSink, "widget", videoItem, nullptr);
@@ -39,18 +37,10 @@ void VideoPlayer::setVideoItem(QObject *videoItem) {
     }
 }
 
-void VideoPlayer::startVideo() {
+void VideoController::startVideo() {
     window()->scheduleRenderJob (new VideoSetPlaying(m_pipeline), QQuickWindow::BeforeSynchronizingStage);
 }
 
-GstElement* VideoPlayer::pipeline() const {
-    return m_pipeline;
-}
-
-GstElement* VideoPlayer::sink() const {
-    return m_videoSink;
-}
-
-QObject *VideoPlayer::videoItem() const {
+QObject *VideoController::videoItem() const {
     return m_videoItem;
 }

@@ -6,7 +6,7 @@
 #include <gst/gst.h>
 
 #include "VideoSetPlaying.h"
-#include "VideoPlayer.h"
+#include "VideoController.h"
 
 int main(int argc, char *argv[])
 {

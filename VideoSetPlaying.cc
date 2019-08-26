@@ -16,8 +16,6 @@ VideoSetPlaying::~VideoSetPlaying ()
 void VideoSetPlaying::run ()
 {
   if (m_pipeline) {
-    qDebug() << "Starting to render";
     gst_element_set_state (m_pipeline, GST_STATE_PLAYING);
-    qDebug() << "Call to render finished";
   }
 }
