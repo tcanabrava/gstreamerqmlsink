@@ -31,6 +31,7 @@ void VideoPlayer::preparePipeline() {
 void VideoPlayer::setVideoItem(QObject *videoItem) {
     if (m_videoItem != videoItem) {
         m_videoItem = videoItem;
+        g_object_set(m_videoSink, "widget", videoItem, nullptr);
         Q_EMIT videoItemChanged(m_videoItem);
     }
 }
