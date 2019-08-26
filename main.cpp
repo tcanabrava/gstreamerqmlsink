@@ -6,6 +6,7 @@
 #include <gst/gst.h>
 
 #include "VideoSetPlaying.h"
+#include "VideoPlayer.h"
 
 int main(int argc, char *argv[])
 {
@@ -14,6 +15,8 @@ int main(int argc, char *argv[])
   gst_init (&argc, &argv);
 
   QGuiApplication app(argc, argv);
+
+  qmlRegisterType<VideoPlayer>("org.bluerobotics.com", 1, 0, "VideoPlayer");
 
   GstElement *sink = gst_element_factory_make ("qmlglsink", nullptr);
   gst_object_unref(sink);

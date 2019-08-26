@@ -5,6 +5,7 @@ import QtQuick.Dialogs 1.2
 import QtQuick.Window 2.1
 
 import org.freedesktop.gstreamer.GLVideoItem 1.0
+import org.bluerobotics.com 1.0
 
 ApplicationWindow {
     id: window
@@ -14,6 +15,13 @@ ApplicationWindow {
     x: 30
     y: 30
     color: "black"
+
+    VideoPlayer {
+        id: videoPlayer
+        Component.onCompleted : {
+            console.log("Loading the Video Player");
+        }
+    }
 
     Item {
         anchors.fill: parent

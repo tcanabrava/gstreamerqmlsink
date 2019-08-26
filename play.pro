@@ -1,9 +1,10 @@
 TEMPLATE = app
 
-QT += qml quick widgets
+QT += qml quick widgets core
 
 QT_CONFIG -= no-pkg-config
-CONFIG += link_pkgconfig debug
+
+CONFIG += link_pkgconfig debug moc
 PKGCONFIG = \
     gstreamer-1.0 \
     gstreamer-video-1.0
@@ -12,7 +13,8 @@ DEFINES += GST_USE_UNSTABLE_API
 
 INCLUDEPATH += ../lib
 
-SOURCES += main.cpp VideoSetPlaying.cc
+SOURCES += main.cpp VideoSetPlaying.cc VideoPlayer.cc
+HEADERS += VideoSetPlaying.h VideoPlayer.h
 
 RESOURCES += qmlsink.qrc
 
