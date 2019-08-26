@@ -16,9 +16,8 @@ ApplicationWindow {
     y: 30
     color: "black"
 
-    VideoPlayer {
-        id: videoPlayer
-        objectName: "videoPlayer"
+    VideoController {
+        id: videoController
         videoItem: video
         Component.onCompleted : {
             console.log("Loading the Video Player");
@@ -31,7 +30,6 @@ ApplicationWindow {
 
         GstGLVideoItem {
             id: video
-            objectName: "videoItem"
             anchors.centerIn: parent
             width: parent.width
             height: parent.height

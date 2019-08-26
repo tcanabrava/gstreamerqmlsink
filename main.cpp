@@ -16,24 +16,16 @@ int main(int argc, char *argv[])
 
   QGuiApplication app(argc, argv);
 
-  qmlRegisterType<VideoPlayer>("org.bluerobotics.com", 1, 0, "VideoPlayer");
+  qmlRegisterType<VideoController>("org.bluerobotics.com", 1, 0, "VideoController");
 
+  // This is just so I have the Qml item registered.
   GstElement *sink = gst_element_factory_make ("qmlglsink", nullptr);
   gst_object_unref(sink);
-
 
   QQmlApplicationEngine engine;
   engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
-
-  /* find and set the videoItem on the sink */
-  auto rootObject = static_cast<QQuickWindow *> (engine.rootObjects().first());
-  auto videoPlayer = rootObject->findChild<QQuickItem *> ("videoPlayer");
-  
-
   ret = app.exec();
-
-
   gst_deinit ();
 
   return ret;
