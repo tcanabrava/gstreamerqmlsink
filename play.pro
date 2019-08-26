@@ -12,7 +12,7 @@ DEFINES += GST_USE_UNSTABLE_API
 
 INCLUDEPATH += ../lib
 
-SOURCES += main.cpp
+SOURCES += main.cpp VideoSetPlaying.cc
 
 RESOURCES += qmlsink.qrc
 
