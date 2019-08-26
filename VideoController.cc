@@ -8,7 +8,9 @@ VideoController::VideoController(QQuickItem *parent)
 , m_videoItem(nullptr)
 , m_pipeline(nullptr)
 , m_videoSink(nullptr)
+, m_shouldStartVideo(false)
 {
+    setFlag(ItemHasContents);
     preparePipeline();
 }
 
@@ -38,7 +40,17 @@ void VideoController::setVideoItem(QObject *videoItem) {
 }
 
 void VideoController::startVideo() {
-    window()->scheduleRenderJob (new VideoSetPlaying(m_pipeline), QQuickWindow::BeforeSynchronizingStage);
+    m_shouldStartVideo = true;
+    update();
+}
+
+QSGNode *VideoController::updatePaintNode(QSGNode *node, UpdatePaintNodeData *data)
+{
+    if (m_shouldStartVideo) {
+        gst_element_set_state (m_pipeline, GST_STATE_PLAYING);
+        m_shouldStartVideo = false;
+    }
+    return node;
 }
 
 QObject *VideoController::videoItem() const {

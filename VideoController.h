@@ -21,8 +21,12 @@ public:
     /* This method sets the pipeline state to playing as soon as Qt allows it */
     Q_INVOKABLE void startVideo();
     
+    /* This *actually* enables the video set by startVideo() */
+    QSGNode *updatePaintNode(QSGNode *node, UpdatePaintNodeData *);
+
 private:
     QObject *m_videoItem;
     GstElement *m_pipeline;
     GstElement *m_videoSink;
+    bool m_shouldStartVideo;
 };
