@@ -1,4 +1,7 @@
 #include "VideoPlayer.h"
+#include "VideoSetPlaying.h"
+
+#include <QQuickWindow>
 
 VideoPlayer::VideoPlayer(QQuickItem *parent) 
 : QQuickItem(parent)
@@ -34,6 +37,10 @@ void VideoPlayer::setVideoItem(QObject *videoItem) {
         g_object_set(m_videoSink, "widget", videoItem, nullptr);
         Q_EMIT videoItemChanged(m_videoItem);
     }
+}
+
+void VideoPlayer::startVideo() {
+    window()->scheduleRenderJob (new VideoSetPlaying(m_pipeline), QQuickWindow::BeforeSynchronizingStage);
 }
 
 GstElement* VideoPlayer::pipeline() const {

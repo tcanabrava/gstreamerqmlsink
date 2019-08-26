@@ -17,7 +17,8 @@ public:
     void preparePipeline();
     GstElement *pipeline() const;
     GstElement *sink() const;
-
+    Q_INVOKABLE void startVideo();
+    
 private:
     QObject *m_videoItem;
     GstElement *m_pipeline;

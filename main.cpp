@@ -30,8 +30,6 @@ int main(int argc, char *argv[])
   auto rootObject = static_cast<QQuickWindow *> (engine.rootObjects().first());
   auto videoPlayer = rootObject->findChild<QQuickItem *> ("videoPlayer");
   
-   rootObject->scheduleRenderJob (new VideoSetPlaying (qobject_cast<VideoPlayer*>(videoPlayer)->pipeline()),
-        QQuickWindow::BeforeSynchronizingStage);
 
   ret = app.exec();
 

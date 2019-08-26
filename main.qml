@@ -22,6 +22,7 @@ ApplicationWindow {
         videoItem: video
         Component.onCompleted : {
             console.log("Loading the Video Player");
+            videoPlayer.startVideo();
         }
     }
 
